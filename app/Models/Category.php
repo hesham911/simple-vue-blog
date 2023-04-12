@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
@@ -21,4 +22,15 @@ class Category extends Model
         'updated_at',
         'deleted_at'
     ];
+
+
+    public function blogs(): HasMany
+    {
+        return $this->hasMany(Blog::class,'category_id');
+    }
+
+    public function child(): HasMany
+    {
+        return $this->hasMany(Category::class,'parent_id','id');
+    }
 }
